@@ -1,0 +1,55 @@
+# Istio IngressGateway + routing rules.
+# Replaces the api-gateway Node.js proxy with pure YAML routing.
+# External traffic → IngressGateway → VirtualService routes → service pods
+
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: microservices-gateway
+  namespace: microservices
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: microservices-routes
+  namespace: microservices
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - microservices-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /users
+      route:
+        - destination:
+            host: user-service
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /products
+      route:
+        - destination:
+            host: product-service
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /orders
+      route:
+        - destination:
+            host: order-service
+            port:
+              number: 80

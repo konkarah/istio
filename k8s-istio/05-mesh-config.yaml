@@ -1,0 +1,29 @@
+# 05-mesh-config.yaml
+#
+# WHAT THIS DOES:
+# Patches the Istio mesh-wide ConfigMap to enable tracing and point
+# every Envoy sidecar at the Jaeger collector.
+#
+# defaultConfig.tracing.zipkin.address → where Envoy sends spans
+# enableTracing: true                  → turns on trace header propagation
+#
+# zipkin.istio-system:9411 is the Jaeger all-in-one container's
+# Zipkin-compatible ingest port. Istio speaks Zipkin B3 format natively.
+#
+# HOW TO APPLY:
+# kubectl apply -f 05-mesh-config.yaml
+# Note: this patches the existing istio ConfigMap, not creates a new one.
+# If you get a warning about missing annotation, that's fine — it still works.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: istio
+  namespace: istio-system
+data:
+  mesh: |-
+    defaultConfig:
+      tracing:
+        zipkin:
+          address: zipkin.istio-system:9411
+    enableTracing: true

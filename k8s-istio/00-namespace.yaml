@@ -1,0 +1,8 @@
+# Enables Istio sidecar injection for all pods in this namespace.
+# The single label below is all it takes — Istio injects Envoy automatically.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: microservices
+  labels:
+    istio-injection: enabled

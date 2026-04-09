@@ -1,0 +1,24 @@
+# 04-telemetry.yaml
+#
+# WHAT THIS DOES:
+# Tells Istio to send 100% of traces to Jaeger.
+# Without this, Istio defaults to 1% sampling — you'd rarely see traces.
+#
+# The Telemetry resource is the modern way (Istio 1.18+) to configure tracing.
+# randomSamplingPercentage: 100 means every single request gets traced.
+# In production you'd lower this to 1-10% to reduce overhead.
+#
+# The ConfigMap patch tells each Envoy sidecar where to send spans —
+# zipkin.istio-system:9411 is the Jaeger collector's Zipkin-compatible endpoint.
+# Istio uses the Zipkin protocol to send spans to Jaeger.
+
+apiVersion: telemetry.istio.io/v1alpha1
+kind: Telemetry
+metadata:
+  name: mesh-default
+  namespace: istio-system
+spec:
+  tracing:
+    - providers:
+        - name: jaeger
+      randomSamplingPercentage: 100
