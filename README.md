@@ -297,4 +297,4 @@ kubectl rollout restart deployment -n microservices
 - Click the refresh button top right
 
 
-![alt text](<Screenshot 2026-04-09 at 12.02.54 PM.png>) ![alt text](<Screenshot 2026-04-09 at 12.03.02 PM.png>) ![alt text](<Screenshot 2026-04-09 at 12.03.07 PM.png>) ![alt text](<Screenshot 2026-04-09 at 12.04.22 PM.png>)
+![alt text](<Screenshot 2026-04-09 at 12.02.54 PM.png>) ![alt text](<Screenshot 2026-04-09 at 12.03.02 PM.png>) ![alt text](<Screenshot 2026-04-09 at 12.03.07 PM.png>) ![alt text](<Screenshot 2026-04-09 at 12.04.22 PM.png>)![alt text](<Screenshot 2026-04-09 at 11.47.54 AM-1.png>)
